@@ -44,6 +44,16 @@ class CityServiece {
             throw { error };
         }
     }
+
+    async getAllCities(filter) {
+        try {
+            const response = await this.cityRepository.getAllCities({ name: filter.name });
+            return response;
+        } catch (error) {
+            console.log('something went wrong in serviece layer');
+            throw { error };
+        }
+    }
 }
 
 
