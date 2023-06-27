@@ -7,6 +7,8 @@ class AirportRepository extends CrudRepository {
 
         super(Airport)
     }
+
+    //Can use method overriding incase required
 }
 
 module.exports = AirportRepository;
