@@ -25,6 +25,29 @@ const createUser = async (req, res) => {
     }
 }
 
+const signIn = async (req, res) => {
+    try {
+        const response = await userServiece.signIn(req.body.email, req.body.password);
+        return res.status(201).json({
+            data: {
+                token: response
+            },
+            message: 'successfully sign up',
+            success: true,
+            err: {},
+        })
+    } catch (error) {
+        console.log('something went wrong in controller layer');
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: "Not able to sign in",
+            err: error,
+        })
+    }
+}
+
 module.exports = {
     createUser,
+    signIn
 }
