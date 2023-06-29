@@ -4,3 +4,5 @@ Flight_Search_And Serviece/src/config/config.json
 Auth_Serviece/node_modules/
 Auth_Serviece/.env
 Auth_Serviece/src/config/config.json
+Booking_Serviece/node_modules/
+Booking_Serviece/.env
