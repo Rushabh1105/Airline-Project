@@ -1,4 +1,5 @@
-const { User } = require('../models/index');
+const { User, Role } = require('../models/index');
+const ValidationError = require('../utils/validation-error');
 
 
 class UserRepository {
@@ -7,8 +8,12 @@ class UserRepository {
             const user = await User.create(data);
             return user;
         } catch (error) {
+            if (error.name == 'SequelizeValidationError') {
+                let validattionError = new ValidationError(error);
+                console.log(validattionError);
+            }
             console.log('something went wrong in repository layer');
-            throw { error };
+            throw { validattionError };
         }
     }
 
@@ -46,6 +51,21 @@ class UserRepository {
                 }
             })
             return user;
+        } catch (error) {
+            console.log('something went wrong in repository layer');
+            throw { error };
+        }
+    }
+
+    async isAdmin(userId) {
+        try {
+            const user = await User.findByPk(userId);
+            const adminRole = await Role.findOne({
+                where: {
+                    name: 'ADMIN',
+                }
+            });
+            return user.hasRole(adminRole);
         } catch (error) {
             console.log('something went wrong in repository layer');
             throw { error };

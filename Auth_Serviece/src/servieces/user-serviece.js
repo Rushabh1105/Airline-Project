@@ -82,6 +82,15 @@ class UserServiece {
         }
     }
 
+    async isAdmin(userId) {
+        try {
+            return this.userRepository.isAdmin(userId);
+        } catch (error) {
+            console.log('something went wrong with password');
+            throw { error };
+        }
+    }
+
 
 }
 
