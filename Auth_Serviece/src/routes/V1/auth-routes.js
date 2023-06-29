@@ -6,6 +6,12 @@ const { AuthRequestValidator } = require('../../middlewares/index')
 const router = express.Router();
 
 router.post('/signup', AuthRequestValidator.validateUserSignup, UserController.createUser);
-router.post('/signin', AuthRequestValidator.validateUserSignup, UserController.signIn)
+router.post('/signin', AuthRequestValidator.validateUserSignup, UserController.signIn);
+router.get('/isAuthenticated', UserController.isAuthenticated);
+router.get('/dummy', (req, res) => {
+    return res.status(200).json({
+        message: 'Okk'
+    })
+})
 
 module.exports = router;

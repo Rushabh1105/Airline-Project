@@ -36,6 +36,23 @@ class UserServiece {
         }
     }
 
+    async isAuthenticated(token) {
+        try {
+            const response = await this.varifyToken(token);
+            if (!response) {
+                throw { error: 'Invalid User' };
+            }
+            const user = this.userRepository.getById(response.id);
+            if (!user) {
+                throw { error: 'User not exist' };
+            }
+            return user;
+        } catch (error) {
+            console.log('something went wrong with password');
+            throw { error };
+        }
+    }
+
     async createToken(user) {
         try {
             const result = await jwt.sign(user, JWT_KEY, { expiresIn: '1h' });
@@ -64,6 +81,8 @@ class UserServiece {
             throw { error };
         }
     }
+
+
 }
 
 module.exports = UserServiece
