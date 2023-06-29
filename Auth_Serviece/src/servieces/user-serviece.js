@@ -42,7 +42,7 @@ class UserServiece {
             if (!response) {
                 throw { error: 'Invalid User' };
             }
-            const user = this.userRepository.getById(response.id);
+            const user = await this.userRepository.getById(response.id);
             if (!user) {
                 throw { error: 'User not exist' };
             }
