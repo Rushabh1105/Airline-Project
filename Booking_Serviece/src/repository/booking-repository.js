@@ -20,6 +20,24 @@ class BookingRepository {
             )
         }
     }
+
+    async updateBooking(bookingId, data) {
+        try {
+            await Booking.update(data, {
+                where: {
+                    id: bookingId
+                }
+            });
+            return true;
+        } catch (error) {
+            throw new AppError(
+                'Repository Error',
+                'Cannot create booking',
+                'There was some issue at our end please try again later',
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
+        }
+    }
 }
 
 module.exports = BookingRepository;

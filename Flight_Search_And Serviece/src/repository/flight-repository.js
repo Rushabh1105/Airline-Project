@@ -32,7 +32,7 @@ class FlightRepository {
 
     async getFlight(flightId) {
         try {
-            const flight = await Flight.getByPk(flightId);
+            const flight = await Flight.findByPk(flightId);
             return flight;
         } catch (error) {
             throw { error }
