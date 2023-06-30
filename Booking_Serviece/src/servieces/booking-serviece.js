@@ -17,14 +17,21 @@ class BookingServiece {
             const response = await axios.get(getFlightrequestUrl);
             const flightData = response.data.data;
             let priceOfFlight = flightData.price;
+
             if (data.NoOfSeats > flightData.totalSeats) {
                 throw new ServieceError('Something went wrong in process', 'Seats full',)
             }
-            const totalCost = priceOfFlight * data.NoOfSeats;
-            const bookingPayload = { ...data, totalCost };
+            const TotalCost = priceOfFlight * data.NoOfSeats;
+            console.log(TotalCost);
+            const bookingPayload = { ...data, TotalCost };
             const booking = await this.bookingRepository.createBooking(bookingPayload);
-
-            return booking;
+            const updateFlightRequestURL = `${FLIGHT_SERVIECE_PATH}/api/v1/flights/${booking.flightId}`;
+            await axios.patch(
+                updateFlightRequestURL,
+                { totalSeats: flightData.totalSeats - booking.NoOfSeats },
+            );
+            const finalBooking = await this.bookingRepository.updateBooking(booking.id, { status: "Booked" })
+            return finalBooking;
 
         } catch (error) {
             throw new ServieceError();
