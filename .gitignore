@@ -6,3 +6,7 @@ Auth_Serviece/.env
 Auth_Serviece/src/config/config.json
 Booking_Serviece/node_modules/
 Booking_Serviece/.env
+Remainder_Serviece/node_modules/
+Remainder_Serviece/.env
+Remainder_Serviece/src/config/server-config.js
+Remainder_Serviece/src/config/config.json
