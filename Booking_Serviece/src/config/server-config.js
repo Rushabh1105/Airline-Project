@@ -5,5 +5,8 @@ dotenv.config();
 module.exports = {
     PORT: process.env.PORT,
     DB_SYNC: process.env.DB_SYNC,
-    FLIGHT_SERVIECE_PATH: process.env.FLIGHT_SERVIECE_PATH
+    FLIGHT_SERVIECE_PATH: process.env.FLIGHT_SERVIECE_PATH,
+    MESSAGE_BROKER_URL: process.env.MESSAGE_BROKER_URL,
+    EXCHANGE_NAME: process.env.EXCHANGE_NAME,
+    REMAINDER_BINDING_KEY: process.env.REMAINDER_BINDING_KEY,
 }
