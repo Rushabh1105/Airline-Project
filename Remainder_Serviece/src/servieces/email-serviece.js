@@ -48,9 +48,17 @@ const createTicket = async (data) => {
     }
 }
 
+const subscribedEvents = async (data) => {
+    //let serviece = data.serviece;
+
+    console.log('inside serviece layer', data.toString())
+
+}
+
 module.exports = {
     sendBasicEmail,
     fetchPendingEmails,
     createTicket,
-    updateTicket
+    updateTicket,
+    testingQueue
 }

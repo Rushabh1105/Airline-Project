@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { PORT } = require('./config/server-config');
-const { createChannel, } = require('./utils/message-queues')
+const { PORT, REMAINDER_BINDING_KEY } = require('./config/server-config');
+const { createChannel, subscribeMessage } = require('./utils/message-queues');
 const apiRouter = require('./router/router');
-const jobs = require('./utils/job')
+const jobs = require('./utils/job');
+const EmailServiece = require('./servieces/email-serviece');
 
 
 const setupAndStartServer = async () => {
@@ -13,6 +14,7 @@ const setupAndStartServer = async () => {
     app.use(bodyParser.urlencoded({ extended: true }));
 
     const channel = await createChannel();
+    subscribeMessage(channel, EmailServiece.testingQueue, REMAINDER_BINDING_KEY)
 
     app.use('/api', apiRouter);
 

@@ -7,7 +7,7 @@ const db = require('./models/index');
 
 const app = express();
 
-const setupAndStartServer = () => {
+const setupAndStartServer = async () => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));

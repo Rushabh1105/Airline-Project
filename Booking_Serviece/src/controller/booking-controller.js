@@ -1,17 +1,28 @@
 const { StatusCodes } = require('http-status-codes')
 const { BookingServiece } = require('../servieces/index');
+const { createChannel, publishMessage } = require('../utils/message-queue');
+const { REMAINDER_BINDING_KEY } = require('../config/server-config');
 
 const bookingServiece = new BookingServiece();
 
+
 class BookingController {
 
-    constructor(channel) {
-        this.channel = channel
+    constructor() {
+
     }
 
     async sendMessageToQueues(req, res) {
         try {
+            const channel = await createChannel();
+            const data = { message: 'Success' }
+            publishMessage(channel, REMAINDER_BINDING_KEY, JSON.stringify(data));
+            return res.status(200).json({
+                message: 'Successfylly publish the event',
+                data: data,
+                serviece: 'DEMO_SERVIECE',
 
+            })
         } catch (error) {
             return res.status(error.statusCode).json({
                 success: false,
@@ -42,8 +53,8 @@ class BookingController {
     }
 }
 
-const create = async (req, res) => {
+/* const create = async (req, res) => {
 
-}
+} */
 
 module.exports = BookingController;
